@@ -1,8 +1,8 @@
-## Amazon QuickSight Asset Migration CI/ CD
+# Amazon QuickSight Asset Migration CI/ CD
 
 This is a prescriptive guidance to implement code integration and code deployment (CI/ CD) pipeline for migrating Amazon QuickSight assets from less restrictive environment such as Beta to a more restrictive environment such as Production.  
 
-### Architecture
+## Architecture
 
 <img width="565" alt="image" src="https://user-images.githubusercontent.com/14042866/229660650-f12284c6-7405-451d-83cc-54a25dae6ed6.png">
 
@@ -16,7 +16,7 @@ The architecture uses the below AWS services.
 5.	Amazon S3
 6.	AWS Code Pipeline
 
-### Pre-requisite
+## Pre-requisite
 
 *	The AWS Code Commit code repository must have 2 branches- **_master_** and **_beta_**.
 
@@ -24,11 +24,11 @@ The architecture uses the below AWS services.
 
 * You should consider maintaining IAM user groups to allow/ limit Git push and merg the above branches using AWS Code Commit IAM policies as described in [Limit pushes and merges to branches in AWS CodeCommit](https://docs.aws.amazon.com/codecommit/latest/userguide/how-to-conditional-branch.html).
 
-### Deployment guide
+## Deployment guide
 
-#### 1. AWS Code Commit
+### AWS Code Commit
 
-**_Setup IAM user who will access the AWS Code Commit repository_**
+#### _Setup IAM user who will access the AWS Code Commit repository_
 
 Step 1: **AWS IAM > Users > Search or Add users > Permissions > Add permissions > Attach policies directly > AWSCodeCommitPowerUser**
 
@@ -42,7 +42,7 @@ Step 3: **AWS IAM > Users > Search or Add users > Security credentials > HTTPS G
 
 ![image](https://user-images.githubusercontent.com/14042866/228686627-8933f7f4-936b-4798-9b87-a5eb973cd75d.jpeg)
 
-**_Setup the AWS CodeCommit repository_**
+#### _Setup the AWS CodeCommit repository_
 
 Step 1: **AWS > CodeCommit > Source > Repositories > Create repository**
 
@@ -88,9 +88,9 @@ After the final step above, come back to AWS console and navigate to your AWS Co
 
 ![image](https://user-images.githubusercontent.com/14042866/228687039-3ade741f-bcc1-4af2-a655-838cbd5ace4f.jpeg)
 
-#### 2. AWS IAM
+###  AWS IAM
 
-**_Configurations in the source AWS account_**
+#### _Configurations in the source AWS account_
 
 In the Beta account i.e where the CI/ CD Code Pipeline is being setup, create below IAM roles
 
@@ -209,7 +209,7 @@ _Inline Policies_
 }
 ```
 
-**_Configurations in the target AWS account_**
+#### _Configurations in the target AWS account_
 
 In the target AWS account i.e where the CI/ CD Code Pipeline will deploy the Amazon QuickSight assets, create the below IAM role
 
@@ -268,7 +268,7 @@ _Inline Policy (**_Quicksight-assets-create-update_**)_
 }
 ```
 
-#### 3. AWS Lambda
+### AWS Lambda
 
 Step 1: Create a Lambda function _quicksight-assets-pipeline_ from scratch with Runtime **Python 3.8**, select Execution role as **Use an existing role**
 
@@ -311,7 +311,7 @@ Follow the steps described [here](https://aws.amazon.com/premiumsupport/knowledg
 ![image](https://user-images.githubusercontent.com/14042866/229654280-6392d824-7c0e-47ef-bce7-98de69c6be83.jpeg)
   
 
-#### 4. AWS Code Pipeline
+### AWS Code Pipeline
   
 Step 1: Create Pipeline
   
