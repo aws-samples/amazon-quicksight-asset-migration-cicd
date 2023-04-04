@@ -4,7 +4,8 @@ This is a prescriptive guidance to implement code integration and code deploymen
 
 ### Architecture
 
-<img width="468" alt="image" src="https://user-images.githubusercontent.com/14042866/228686061-325c3978-ff86-4559-9b53-32ef54defc04.png">
+<img width="565" alt="image" src="https://user-images.githubusercontent.com/14042866/229660650-f12284c6-7405-451d-83cc-54a25dae6ed6.png">
+
 
 The architecture uses the below AWS services.
 
@@ -35,7 +36,7 @@ Step 1: **AWS IAM > Users > Search or Add users > Permissions > Add permissions 
 
 Step 2:  Install Git locally: to install Git, we recommend websites such as [Git Downloads](http://git-scm.com/downloads).
 
-Step 3: **AWS IAM > Users > Search or Add users > Security credentials > HTTPS Git credentials for AWS CodeCommit > Generate credentials **
+Step 3: **AWS IAM > Users > Search or Add users > Security credentials > HTTPS Git credentials for AWS CodeCommit > Generate credentials**
 
 ![image](https://user-images.githubusercontent.com/14042866/228686620-cca0b6d7-9ac7-4e62-8166-ee006314f4e1.jpeg)
 
@@ -281,10 +282,10 @@ Step 2: Update Lambda configuration
 
 
 2.  Add the below 4 environment variables
-* ASSUME_ROLE_ARN_BETA --> arn:aws:iam::<source-aws-account-id>:role/Cross-Account-QuickSight-Asset-CRUD
-* ASSUME_ROLE_ARN_PROD	--> arn:aws:iam::<target-aws-account-id>:role/Current-Account-QuickSight-Asset-CRUD
-* AWS_ACCOUNT_ID_BETA --> <source-aws-account-id>
-* AWS_ACCOUNT_ID_PROD --> <target-aws-account-id>
+* ASSUME_ROLE_ARN_BETA -- arn:aws:iam::source-aws-account-id:role/Cross-Account-QuickSight-Asset-CRUD
+* ASSUME_ROLE_ARN_PROD	-- arn:aws:iam::target-aws-account-id:role/Current-Account-QuickSight-Asset-CRUD
+* AWS_ACCOUNT_ID_BETA -- source-aws-account-id
+* AWS_ACCOUNT_ID_PROD -- target-aws-account-id
   
 ![image](https://user-images.githubusercontent.com/14042866/229659841-3c5574ea-1f46-4dd6-a9ce-b754c316d4f9.jpeg)
 
