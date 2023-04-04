@@ -291,7 +291,7 @@ Step 2: Update Lambda configuration
 
 Step 3: Add the below code to the Lambda function.
 
-Download the code from https://aws-psa-analytics.s3.amazonaws.com/quicksight/deploy-qs-assets_s3source.py and paste into the AWS Lambda function lambda_function.py editor.
+Download the code from [deploy-qs-assets-x-account.py](https://github.com/aws-samples/amazon-quicksight-asset-migration-cicd/blob/main/deploy-qs-assets-x-account.py) and paste into the AWS Lambda function _lambda_function.py_ editor.
 
 Step 4: Navigate to **Configuration** tab. Under Execution role you will see a role name prefixed as _quicksight-assets-pipeline-role_ got created. Click on this role to open the IAM console. We will attach appropriate policies to this role here for the lambda function to perform actions on Amazon QuickSight and AWS Code Pipeline.
 
