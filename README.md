@@ -101,7 +101,8 @@ $ git push
 
 After the final step above, come back to AWS console and navigate to your AWS CodeCommit repository. You will see the _deploy-config.json_ file got created.
 
-![image](https://user-images.githubusercontent.com/14042866/228687039-3ade741f-bcc1-4af2-a655-838cbd5ace4f.jpeg)
+![image](https://user-images.githubusercontent.com/14042866/229956325-bb558c8d-63b0-4213-b009-9d8e7eb86cc5.png)
+
 
 ###  AWS IAM
 
