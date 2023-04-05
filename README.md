@@ -34,9 +34,22 @@ Step 1: **AWS IAM > Users > Search or Add users > Permissions > Add permissions 
 
 ![image](https://user-images.githubusercontent.com/14042866/228686337-13d87f2d-8636-4346-9fc8-6cc894e50afc.jpeg)
 
-Step 2:  Install Git locally: to install Git, we recommend websites such as [Git Downloads](http://git-scm.com/downloads).
+Optional step: If you are creating a new IAM user navigate to the _Security credentials_ tab and click _Create access key_, select _Local code_ , click _Next_. On the _Set description tag_ page click _Create access key_. Click _Download .csv file_ and click _Done_.
 
-Step 3: **AWS IAM > Users > Search or Add users > Security credentials > HTTPS Git credentials for AWS CodeCommit > Generate credentials**
+![image](https://user-images.githubusercontent.com/14042866/229955639-909ec136-1496-4ad8-98d7-4dc4b3ebce80.png)
+
+
+![image](https://user-images.githubusercontent.com/14042866/229955651-f6dad95b-8a9a-415c-a67c-721647b40bad.png)
+
+
+![image](https://user-images.githubusercontent.com/14042866/229955655-f930cf24-8e16-4e16-b691-d7b3128945ce.png)
+
+
+![image](https://user-images.githubusercontent.com/14042866/229955659-628dc80d-d0bc-4f8a-95c5-007a004f0b2f.png)
+
+
+
+Step 2: **AWS IAM > Users > Search or Add users > Security credentials > HTTPS Git credentials for AWS CodeCommit > Generate credentials**
 
 ![image](https://user-images.githubusercontent.com/14042866/228686620-cca0b6d7-9ac7-4e62-8166-ee006314f4e1.jpeg)
 
@@ -52,36 +65,38 @@ Step 1: **AWS > CodeCommit > Source > Repositories > Create repository**
 
 ![image](https://user-images.githubusercontent.com/14042866/228686687-56552b4c-a4db-4898-bc6b-072d8c516b80.jpeg)
 
-Step 2: Clone repository to local
+Step 2:  Open CloudShell from the AWS Console.
 
-Open a terminal in your local and enter below command. Replace the repository URL with your repository in your AWS region. If you are prompted for repository password, enter the downloaded credential retrieved during setting up HTTPS Git credentials for _AWS CodeCommit > Generate credentials_ step described in the previous step.
+Run below commands to clone the repo.
+
+Note: When you are prompted for repository Username and Password, enter the downloaded credential retrieved during setting up HTTPS Git credentials for _AWS CodeCommit > Generate credentials_ step described in the previous step.
+
+`git branch master
+`
 
 `
 git clone https://git-codecommit.us-east-1.amazonaws.com/v1/repos/QuickSightAssets qs-asset-repo
 `
-![image](https://user-images.githubusercontent.com/14042866/228686930-0da4139b-40ff-4229-84cd-1bd8f50c4aad.jpeg)
+
+![image](https://user-images.githubusercontent.com/14042866/229954792-58700bb6-cd22-4df8-bb51-7cc9c914c722.png)
 
 
-Step 3: Create repository folder structure in local repository
+Step 3: Create repository folder structure in CloudShell.
 
 Run below commands from the terminal inside the local repository directory created above.
 
 ```
-$mkdir datasource dataset analysis dashboard theme scripts
+$ cd qs-asset-repo
 
-$echo "{   
-"datasources": [{}],
-"datasets": [{}],
-"analyses": [{}],
-"dashboards": [{}],
-"themes": [{}]
-}" >>  scripts/deploy-config.json
+$ mkdir datasource dataset analysis dashboard theme scripts
 
-$git add scripts/
+$ echo "{   \"datasources\": [{}], \"datasets\": [{}], \"analyses\": [{}], \"dashboards\": [{}], \"themes\": [{}]}" >> scripts/deploy-config.json
 
-$git commit -m "Initial scripts file"
+$ git add scripts/
 
-$git push
+$ git commit -m "Initial scripts file"
+
+$ git push
 ```
 
 After the final step above, come back to AWS console and navigate to your AWS CodeCommit repository. You will see the _deploy-config.json_ file got created.
