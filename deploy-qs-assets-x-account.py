@@ -19,8 +19,10 @@ zipfile = ''
 
 codecommit = boto3.client('codecommit')
 pipeline = boto3.client('codepipeline')
-quicksight = boto3.client('quicksight')
+quicksight = None
 s3 = boto3.resource('s3')
+roleArn = None
+sessionName = 'CrossAccountQuickSightSession'
 
 def get_manifest_file(repository_name, commit_id):
     response = codecommit.get_file(repositoryName = repository_name, commitSpecifier = commit_id, filePath = deployment_config_path)
@@ -74,6 +76,32 @@ def update_analysis_permission(analysis_id, analysis_permission_json):
         logger.info('Update permission HTTP status: ' + str(response['Status']) + ' Analysis ARN:' + response['AnalysisArn'])
         
 def deploy_analysis(analyses_manifest):
+    #Assume role that has permissions on QuickSight
+    global quicksight
+    sts = boto3.client('sts')
+    assumedRole = sts.assume_role(
+        RoleArn = roleArn,
+        RoleSessionName = sessionName
+        )
+    stage = 'Assumed role'
+        
+    #Create boto3 session
+    assumedRoleSession = boto3.Session(
+        aws_access_key_id = assumedRole['Credentials']['AccessKeyId'],
+        aws_secret_access_key = assumedRole['Credentials']['SecretAccessKey'],
+        aws_session_token = assumedRole['Credentials']['SessionToken'],
+    )
+        
+    print("Assumed role as {} ".format(roleArn))
+    logger.info("Assumed role as {} ".format(roleArn))
+        
+    #quicksight = assumedRoleSession.client('quicksight',region_name= dashboardRegion)
+    quicksight = assumedRoleSession.client('quicksight')
+    stage = 'Created QuickSight client'
+        
+    print("quickSight Client created successfully")
+    logger.info("quickSight Client created successfully")
+                
     for analysis in analyses_manifest:
         analysis_id = analysis['id']
         analysis_name = analysis['name']
@@ -127,6 +155,7 @@ def lambda_handler(event, context):
     logger.info(event)
     global zipfile
     global target_aws_account_id
+    global roleArn
     
     params = json.loads(event['CodePipeline.job']['data']['actionConfiguration']['configuration']['UserParameters'])
     for param in params:
@@ -142,8 +171,10 @@ def lambda_handler(event, context):
     
     if branchname == 'master':
         target_aws_account_id = os.environ['AWS_ACCOUNT_ID_PROD']
+        roleArn = os.environ['ASSUME_ROLE_ARN_PROD']
     else:
         target_aws_account_id = os.environ['AWS_ACCOUNT_ID_BETA']
+        roleArn = os.environ['ASSUME_ROLE_ARN_BETA']
         
     print('Deploying will start in target AWS_ACCOUNT_ID {}'.format(target_aws_account_id))
     logger.info('Deploying will start in target AWS_ACCOUNT_ID {}'.format(target_aws_account_id))
