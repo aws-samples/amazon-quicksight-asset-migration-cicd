@@ -34,7 +34,7 @@ Step 1: **AWS IAM > Users > Search or Add users > Permissions > Add permissions 
 
 ![image](https://user-images.githubusercontent.com/14042866/228686337-13d87f2d-8636-4346-9fc8-6cc894e50afc.jpeg)
 
-Optional step: If you are creating a new IAM user navigate to the _Security credentials_ tab and click _Create access key_, select _Local code_ , click _Next_. On the _Set description tag_ page click _Create access key_. Click _Download .csv file_ and click _Done_.
+**Optional step**: If you are creating a new IAM user navigate to the _Security credentials_ tab and click _Create access key_, select _Local code_ , click _Next_. On the _Set description tag_ page click _Create access key_. Click _Download .csv file_ and click _Done_.
 
 ![image](https://user-images.githubusercontent.com/14042866/229955639-909ec136-1496-4ad8-98d7-4dc4b3ebce80.png)
 
